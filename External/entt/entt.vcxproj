@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{01136643-864d-426c-9354-0f166649ddc0}</ProjectGuid>
+    <RootNamespace>entt</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\entt\config\config.h" />
+    <ClInclude Include="include\entt\config\version.h" />
+    <ClInclude Include="include\entt\core\algorithm.hpp" />
+    <ClInclude Include="include\entt\core\attribute.h" />
+    <ClInclude Include="include\entt\core\family.hpp" />
+    <ClInclude Include="include\entt\core\fwd.hpp" />
+    <ClInclude Include="include\entt\core\hashed_string.hpp" />
+    <ClInclude Include="include\entt\core\ident.hpp" />
+    <ClInclude Include="include\entt\core\monostate.hpp" />
+    <ClInclude Include="include\entt\core\type_info.hpp" />
+    <ClInclude Include="include\entt\core\type_traits.hpp" />
+    <ClInclude Include="include\entt\core\utility.hpp" />
+    <ClInclude Include="include\entt\entity\actor.hpp" />
+    <ClInclude Include="include\entt\entity\entity.hpp" />
+    <ClInclude Include="include\entt\entity\fwd.hpp" />
+    <ClInclude Include="include\entt\entity\group.hpp" />
+    <ClInclude Include="include\entt\entity\helper.hpp" />
+    <ClInclude Include="include\entt\entity\observer.hpp" />
+    <ClInclude Include="include\entt\entity\registry.hpp" />
+    <ClInclude Include="include\entt\entity\runtime_view.hpp" />
+    <ClInclude Include="include\entt\entity\snapshot.hpp" />
+    <ClInclude Include="include\entt\entity\sparse_set.hpp" />
+    <ClInclude Include="include\entt\entity\storage.hpp" />
+    <ClInclude Include="include\entt\entity\utility.hpp" />
+    <ClInclude Include="include\entt\entity\view.hpp" />
+    <ClInclude Include="include\entt\entt.hpp" />
+    <ClInclude Include="include\entt\fwd.hpp" />
+    <ClInclude Include="include\entt\locator\locator.hpp" />
+    <ClInclude Include="include\entt\meta\factory.hpp" />
+    <ClInclude Include="include\entt\meta\meta.hpp" />
+    <ClInclude Include="include\entt\meta\policy.hpp" />
+    <ClInclude Include="include\entt\meta\resolve.hpp" />
+    <ClInclude Include="include\entt\process\process.hpp" />
+    <ClInclude Include="include\entt\process\scheduler.hpp" />
+    <ClInclude Include="include\entt\resource\cache.hpp" />
+    <ClInclude Include="include\entt\resource\fwd.hpp" />
+    <ClInclude Include="include\entt\resource\handle.hpp" />
+    <ClInclude Include="include\entt\resource\loader.hpp" />
+    <ClInclude Include="include\entt\signal\delegate.hpp" />
+    <ClInclude Include="include\entt\signal\dispatcher.hpp" />
+    <ClInclude Include="include\entt\signal\emitter.hpp" />
+    <ClInclude Include="include\entt\signal\fwd.hpp" />
+    <ClInclude Include="include\entt\signal\sigh.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
