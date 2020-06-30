@@ -1,0 +1,4 @@
+C:/dev/Nova/External/googletest/CMakeFiles/gtest.dir
+C:/dev/Nova/External/googletest/CMakeFiles/gtest_main.dir
+C:/dev/Nova/External/googletest/CMakeFiles/ALL_BUILD.dir
+C:/dev/Nova/External/googletest/CMakeFiles/ZERO_CHECK.dir
