@@ -16,4 +16,6 @@
 namespace nova
 {
 	constexpr const char* k_engine_channel = "Engine";
+	constexpr const char* k_window_channel = "Window";
+	constexpr const char* k_graphics_channel = "Graphics";
 }
