@@ -16,8 +16,7 @@ namespace nova
 
 	void DX12GraphicContext::initialize() noexcept
 	{
-		// TODO: add a custom compiling rule for debug mode
-		device = std::make_unique<DX12Device>(true);
+		device = std::make_unique<DX12Device>();
 		
 		rtv_descriptor_size = device->getRtvDescriptorSize();
 		dsv_descriptor_size = device->getDsvDescriptorSize();

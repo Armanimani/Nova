@@ -3,17 +3,17 @@
 
 namespace nova
 {
-	DX12Device::DX12Device(const Bool is_debug_enabled)
+	DX12Device::DX12Device()
 	{
-		if (is_debug_enabled)
-		{
-			enableDebugLayer();
-		}
-			
+	#ifdef _DEBUG
+		enableDebugLayer();
+	#endif
+
 		createDevice();
 		
-		if (is_debug_enabled)
+	#ifdef _DEBUG
 			enableDebugInfoQueue();
+	#endif
 	}
 
 	Microsoft::WRL::ComPtr<ID3D12CommandQueue> DX12Device::createCommandQueue(
@@ -124,7 +124,7 @@ namespace nova
 	{
 		if (FAILED(device.As(&debug_info_queue)))
 			ConsoleLogger::logWarning(k_dx12_channel, "Unable to query the info queue");
-
+	
 		debug_info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
 		debug_info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
 		debug_info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);

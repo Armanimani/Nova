@@ -8,6 +8,6 @@ namespace nova
 	class NOVA_API DX12DXGIFactoryFactory
 	{
 	public:
-		[[nodiscard]] static Microsoft::WRL::ComPtr<IDXGIFactory7> create(Bool is_debug_enabled = false) noexcept;
+		[[nodiscard]] static Microsoft::WRL::ComPtr<IDXGIFactory6> create() noexcept;
 	};
 }

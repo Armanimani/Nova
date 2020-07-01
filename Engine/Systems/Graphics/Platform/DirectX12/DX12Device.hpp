@@ -8,7 +8,7 @@ namespace nova
 	class NOVA_API DX12Device
 	{
 	public:
-		explicit DX12Device(Bool is_debug_enabled = false);
+		explicit DX12Device();
 
 		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D12CommandQueue>createCommandQueue(
 			D3D12_COMMAND_LIST_TYPE type, D3D12_COMMAND_QUEUE_PRIORITY priority) const noexcept;
