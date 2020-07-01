@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{475fae43-5eb9-449a-9ce7-c040b68ddad7}</ProjectGuid>
+    <RootNamespace>Engine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Bin\$(Platform)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);BUILD_NOVA_DLL;NOVA_BUILD_DLL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\External\entt\include;$(SolutionDir)\External\d3d12\include;$(SolutionDir)\External\spdlog\include</AdditionalIncludeDirectories>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);BUILD_NOVA_DLL;NOVA_BUILD_DLL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\External\entt\include;$(SolutionDir)\External\d3d12\include;$(SolutionDir)\External\spdlog\include</AdditionalIncludeDirectories>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Systems\Graphics\Context\GraphicContextFactory.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12Device.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactoryFactory.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12Fence.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12GraphicContext.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12GraphicContextFactoryAdapter.cpp" />
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12SwapChainFactory.cpp" />
+    <ClCompile Include="Systems\Graphics\GraphicSystem.cpp" />
+    <ClCompile Include="Logging\ConsoleLogger.cpp" />
+    <ClCompile Include="Logging\Implementation\spdlog\ConsoleLoggerAdapter_SpdLog.cpp" />
+    <ClCompile Include="Math\FloatVector2.cpp" />
+    <ClCompile Include="Math\FloatVector3.cpp" />
+    <ClCompile Include="Math\FloatVector4.cpp" />
+    <ClCompile Include="Math\IntVector2.cpp" />
+    <ClCompile Include="Math\IntVector3.cpp" />
+    <ClCompile Include="Math\IntVector4.cpp" />
+    <ClCompile Include="Math\Matrix4X4.cpp" />
+    <ClCompile Include="Systems\Window\Platform\Windows\Win32Window.cpp" />
+    <ClCompile Include="Systems\Window\Platform\Windows\Win32WindowFactoryAdapter.cpp" />
+    <ClCompile Include="Time\CalenderClock.cpp" />
+    <ClCompile Include="Time\Clock.cpp" />
+    <ClCompile Include="Time\StopWatch.cpp" />
+    <ClCompile Include="Time\Timer.cpp" />
+    <ClCompile Include="Systems\Window\WindowFactory.cpp" />
+    <ClCompile Include="Systems\Window\WindowSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\Application.hpp" />
+    <ClInclude Include="Application\Context.hpp" />
+    <ClInclude Include="Systems\ISystem.hpp" />
+    <ClInclude Include="Common\common.hpp" />
+    <ClInclude Include="Configuration\EngineConfiguration.hpp" />
+    <ClInclude Include="DataStructures\SparseSet.hpp" />
+    <ClInclude Include="DesignPatterns\ServiceLocator.hpp" />
+    <ClInclude Include="Entity\entity.hpp" />
+    <ClInclude Include="Systems\Graphics\Context\GraphicContextFactory.hpp" />
+    <ClInclude Include="Systems\Graphics\Settings\GraphicSettings.hpp" />
+    <ClInclude Include="Systems\Graphics\Context\IGraphicContext.hpp" />
+    <ClInclude Include="Systems\Graphics\Context\IGraphicContextFactoryAdapter.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12Common.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12Device.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactoryFactory.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12Fence.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12GraphicContext.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12GraphicContextFactoryAdapter.hpp" />
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12SwapChainFactory.hpp" />
+    <ClInclude Include="Systems\Graphics\Components\GraphicComponent.hpp" />
+    <ClInclude Include="Systems\Graphics\GraphicSystem.hpp" />
+    <ClInclude Include="Logging\ConsoleLogger.hpp" />
+    <ClInclude Include="Logging\IConsoleLoggerAdapter.hpp" />
+    <ClInclude Include="Logging\Implementation\spdlog\ConsoleLoggerAdapter_SpdLog.hpp" />
+    <ClInclude Include="Math\FloatVector2.hpp" />
+    <ClInclude Include="Math\FloatVector3.hpp" />
+    <ClInclude Include="Math\FloatVector4.hpp" />
+    <ClInclude Include="Math\IntVector2.hpp" />
+    <ClInclude Include="Math\IntVector3.hpp" />
+    <ClInclude Include="Math\IntVector4.hpp" />
+    <ClInclude Include="Math\Matrix4X4.hpp" />
+    <ClInclude Include="Math\utilities.hpp" />
+    <ClInclude Include="Systems\Window\Platform\Windows\Win32Window.hpp" />
+    <ClInclude Include="Systems\Window\Platform\Windows\Win32WindowFactoryAdapter.hpp" />
+    <ClInclude Include="Systems\Window\Settings\WindowSettings.hpp" />
+    <ClInclude Include="Time\CalenderClock.hpp" />
+    <ClInclude Include="Time\Clock.hpp" />
+    <ClInclude Include="Time\StopWatch.hpp" />
+    <ClInclude Include="Time\Timer.hpp" />
+    <ClInclude Include="Types\base_types.hpp" />
+    <ClInclude Include="Types\fnv1a_hash.hpp" />
+    <ClInclude Include="Types\HashedString.hpp" />
+    <ClInclude Include="Types\TypeIdentifier.hpp" />
+    <ClInclude Include="Systems\Window\IWindow.hpp" />
+    <ClInclude Include="Systems\Window\IWindowFactoryAdapter.hpp" />
+    <ClInclude Include="Systems\Window\Components\WindowComponent.hpp" />
+    <ClInclude Include="Systems\Window\WindowFactory.hpp" />
+    <ClInclude Include="Systems\Window\WindowSystem.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
