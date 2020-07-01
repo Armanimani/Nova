@@ -5,8 +5,6 @@
 
 namespace nova
 {
-	constexpr const char* k_window_class_name = "Nova";
-
 	Win32Window::Win32Window(const WindowSettings& settings)
 	{
 		if (!is_initialized)
@@ -30,7 +28,7 @@ namespace nova
 
 	void Win32Window::registerWindowClass() noexcept
 	{
-		WNDCLASSEXA wc{};
+		WNDCLASSEX wc{};
 		wc.cbSize = sizeof(wc);
 		wc.style = CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW;
 		wc.lpfnWndProc = windowProcCallback;
@@ -42,9 +40,9 @@ namespace nova
 		wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		wc.hbrBackground = nullptr;
 		wc.lpszMenuName = nullptr;
-		wc.lpszClassName = k_window_class_name;
+		wc.lpszClassName = L"Nova";
 
-		if (!RegisterClassExA(&wc))
+		if (!RegisterClassEx(&wc))
 		{
 			createErrorMessage("Windows class registration failed!");
 		}
@@ -68,8 +66,8 @@ namespace nova
 		const auto window_width = rect.right - rect.left;
 		const auto window_height = rect.bottom - rect.top;
 
-		handle = CreateWindowExA(
-			dwExStyle, k_window_class_name, settings.title.c_str(), dwStyle,
+		handle = CreateWindowEx(
+			dwExStyle, L"Nova", std::wstring(settings.title.cbegin(), settings.title.cend()).c_str(), dwStyle,
 			window_x, window_y, window_width, window_height,
 			nullptr, nullptr, handle_instance, nullptr
 		);
@@ -184,8 +182,8 @@ namespace nova
 	void Win32Window::createErrorMessage(const std::string& message)  noexcept
 	{
 		const UInt32 error = GetLastError();
-		ConsoleLogger::logCritical(k_window_class_name, message + " ErrorCode: " + std::to_string(error));
-		MessageBox(nullptr, LPCWSTR(message.c_str()), TEXT("Error"), MB_ICONEXCLAMATION | MB_OK);
+		ConsoleLogger::logCritical("Nova", message + " ErrorCode: " + std::to_string(error));
+		MessageBox(nullptr, LPCWSTR(message.c_str()), L"Error", MB_ICONEXCLAMATION | MB_OK);
 	}
 
 	void Win32Window::update() const noexcept

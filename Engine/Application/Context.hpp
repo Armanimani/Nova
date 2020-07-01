@@ -11,7 +11,7 @@ namespace nova
 		{
 			master_entity = entity_manager.create();
 		}
-		
+
 		EntityManager entity_manager{};
 		Entity master_entity{};
 	};

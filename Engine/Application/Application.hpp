@@ -41,7 +41,7 @@ namespace nova
 	template <typename Settings>
 	void Application::addSettings(Settings settings) noexcept
 	{
-		context->entity_manager.reserve<Settings>(context->master_entity, 1);
+		context->entity_manager.reserve<Settings>(1);
 		context->entity_manager.emplace<Settings>(context->master_entity, settings);
 	}
 }

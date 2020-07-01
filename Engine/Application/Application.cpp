@@ -25,6 +25,8 @@ namespace nova
 	void Application::start() noexcept
 	{
 		ConsoleLogger::logInformation(k_engine_channel, "Starting...");
+
+		configure();
 		initialize();
 		update();
 		finalize();
