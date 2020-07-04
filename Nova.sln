@@ -23,6 +23,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{F10033FA-AF73-4396-8D24-5249E54E9F26}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Editor\Editor.vcxproj", "{190C3043-326C-4A46-A734-82177FEDFB15}"
+	ProjectSection(ProjectDependencies) = postProject
+		{475FAE43-5EB9-449A-9CE7-C040B68DDAD7} = {475FAE43-5EB9-449A-9CE7-C040B68DDAD7}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -49,6 +54,10 @@ Global
 		{74E5ED42-90B3-4CA9-A135-9874CCDBA6BC}.Debug|x64.Build.0 = Debug|x64
 		{74E5ED42-90B3-4CA9-A135-9874CCDBA6BC}.Release|x64.ActiveCfg = Release|x64
 		{74E5ED42-90B3-4CA9-A135-9874CCDBA6BC}.Release|x64.Build.0 = Release|x64
+		{190C3043-326C-4A46-A734-82177FEDFB15}.Debug|x64.ActiveCfg = Debug|x64
+		{190C3043-326C-4A46-A734-82177FEDFB15}.Debug|x64.Build.0 = Debug|x64
+		{190C3043-326C-4A46-A734-82177FEDFB15}.Release|x64.ActiveCfg = Release|x64
+		{190C3043-326C-4A46-A734-82177FEDFB15}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

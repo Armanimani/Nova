@@ -38,8 +38,9 @@ namespace nova
 		
 		context->entity_manager.reserve<WindowComponent>(1);	
 		context->entity_manager.emplace<WindowComponent>(context->master_entity, own_window, handle);
-		
-		window->show();
+
+		if (window)
+			window->show();
 	}
 	
 	void WindowSystem::update([[maybe_unused]] Context* context, [[maybe_unused]] Float delta_time) noexcept
