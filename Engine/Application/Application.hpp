@@ -23,7 +23,6 @@ namespace nova
 		
 		void start() noexcept;
 	private:
-		Bool is_running{ false };
 		std::vector<std::unique_ptr<ISystem>> systems{};
 		std::unique_ptr<Context> context{ nullptr };
 

@@ -13,6 +13,7 @@ namespace nova
 			master_entity = entity_manager.create();
 		}
 
+		Bool is_running{ false };
 		EntityManager entity_manager{};
 		Entity master_entity{};
 		

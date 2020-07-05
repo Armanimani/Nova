@@ -56,9 +56,9 @@ namespace nova
 		ConsoleLogger::logInformation(k_engine_channel, "Updating");
 		auto frame_clock = Clock();
 
-		is_running = true;
+		context->is_running = true;
 		frame_clock.start();
-		while (is_running)
+		while (context->is_running)
 		{
 			frame_clock.tick();
 			
