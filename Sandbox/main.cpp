@@ -2,6 +2,7 @@
 #include "Engine/Application/Application.hpp"
 #include "Engine/Systems/ISystem.hpp"
 #include "Engine/Systems/Window/WindowSystem.hpp"
+#include "Engine/Systems/Input/InputSystem.hpp"
 #include "Engine/Systems/Graphics/GraphicSystem.hpp"
 #include "Engine/Systems/Window/Settings/WindowSettings.hpp"
 #include "Engine/Systems/Graphics/Settings/GraphicSettings.hpp"
@@ -61,6 +62,8 @@ int main()
 	const auto window_settings = nova::WindowSettings();
 	application.addSettings(window_settings);
 	application.addSystem(std::make_unique<nova::WindowSystem>());
+
+	application.addSystem(std::make_unique<nova::InputSystem>());
 	
 	auto graphic_settings = nova::GraphicSettings();
 	graphic_settings.api = nova::GraphicApi::direct_x12;
