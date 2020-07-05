@@ -2,6 +2,7 @@
 
 #include "Engine/Common/common.hpp"
 #include "Engine/Entity/entity.hpp"
+#include "Engine/Event/EventManager.hpp"
 
 namespace nova
 {
@@ -14,5 +15,7 @@ namespace nova
 
 		EntityManager entity_manager{};
 		Entity master_entity{};
+		
+		EventManager event_manager{};
 	};
 }
