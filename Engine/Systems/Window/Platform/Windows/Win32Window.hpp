@@ -13,11 +13,11 @@ namespace nova
 	{
 	public:
 		Win32Window() = delete;
-		Win32Window(const WindowSettings& settings);
+		Win32Window(const WindowSettings& settings, EventManager* event_manager);
 		~Win32Window();
 		
 		[[nodiscard]] void* getHandle() const noexcept override;
-
+		
 		void update() const noexcept override;
 		void close() const noexcept override;
 
@@ -44,7 +44,13 @@ namespace nova
 		inline static std::unordered_map<HWND, Win32Window*> window_registry{};
 
 		HWND handle{};
+		EventManager* event_manager{ nullptr };
+		
 		void createWindow(const WindowSettings& settings) noexcept;
+
+		void handleWindowEvent(UINT message, WPARAM w_param, LPARAM l_param) const noexcept;
+		void handleKeyboardEvent(UINT message, WPARAM w_param, LPARAM l_param) noexcept;
+		void handleMouseEvent(UINT message, WPARAM w_param, LPARAM l_param) noexcept;
 
 		static void initialize() noexcept;
 		static void initializeInstanceHandle() noexcept;

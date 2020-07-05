@@ -1,11 +1,13 @@
 #include "Engine/Logging/ConsoleLogger.hpp"
 #include "Engine/Systems/Window/Platform/Windows/Win32Window.hpp"
+#include "Engine/Systems/Window/Event/window_events.hpp"
 
 #include <string>
 
 namespace nova
 {
-	Win32Window::Win32Window(const WindowSettings& settings)
+	Win32Window::Win32Window(const WindowSettings& settings, EventManager* event_manager)
+		: event_manager{ event_manager }
 	{
 		if (!is_initialized)
 		{
@@ -79,6 +81,65 @@ namespace nova
 		}
 
 		registerWindow(handle, this);
+	}
+
+	void Win32Window::handleWindowEvent(const UINT message, [[maybe_unused]] const WPARAM w_param, const LPARAM l_param) const noexcept
+	{
+		switch(message)
+		{
+			case WM_SIZE:
+			{
+				const auto width = static_cast<UInt32>(LOWORD(l_param));
+				const auto height = static_cast<UInt32>(HIWORD(l_param));
+				event_manager->addEvent<WindowResizeEvent>(std::make_unique<WindowResizeEvent>(width, height));
+				break;
+			}
+			case WM_SETFOCUS:
+			{
+				event_manager->addEvent<WindowFocusEvent>(std::make_unique<WindowFocusEvent>(true));
+				break;
+			}
+			case WM_KILLFOCUS:
+			{
+				event_manager->addEvent<WindowFocusEvent>(std::make_unique<WindowFocusEvent>(false));
+				break;
+			}
+			case WM_CLOSE:
+			{
+				event_manager->addEvent<WindowCloseEvent>(std::make_unique<WindowCloseEvent>());
+				break;
+			}
+			case WM_DESTROY:
+			{
+				event_manager->addEvent<WindowDestroyEvent>(std::make_unique<WindowDestroyEvent>());
+				break;
+			}
+			case WM_SHOWWINDOW:
+			{
+				event_manager->addEvent<WindowShowEvent>(std::make_unique<WindowShowEvent>());
+				break;
+			}
+			case WM_CREATE:
+			{
+				if (this != nullptr)
+					event_manager->addEvent<WindowCreateEvent>(std::make_unique<WindowCreateEvent>());
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	void Win32Window::handleKeyboardEvent(UINT message, WPARAM w_param, LPARAM l_param) noexcept
+	{
+		// TODO: Add the keyboard events
+	}
+	
+	void Win32Window::handleMouseEvent(UINT message, WPARAM w_param, LPARAM l_param) noexcept
+	{
+		// TODO: add mouse events
 	}
 
 	void* Win32Window::getHandle() const noexcept
@@ -198,6 +259,46 @@ namespace nova
 
 	LRESULT CALLBACK Win32Window::windowProcCallback(HWND handle, const UINT message, const WPARAM w_param, const LPARAM l_param)
 	{
+		const auto window = getWindow(handle);
+
+		switch (message)
+		{
+			case WM_CREATE:
+			case WM_DESTROY:
+			case WM_SIZE:
+			case WM_SETFOCUS:
+			case WM_KILLFOCUS:
+			case WM_CLOSE:
+			case WM_SHOWWINDOW:
+			{
+				window->handleWindowEvent(message, w_param, l_param);
+				break;
+			}
+			case WM_KEYDOWN:
+			case WM_KEYUP:
+			case WM_SYSKEYDOWN:
+			case WM_SYSKEYUP:
+			{
+				window->handleKeyboardEvent(message, w_param, l_param);
+				break;
+			}
+			case WM_LBUTTONDOWN:
+			case WM_LBUTTONUP:
+			case WM_RBUTTONDOWN:
+			case WM_RBUTTONUP:
+			case WM_MBUTTONDOWN:
+			case WM_MBUTTONUP:
+			case WM_MOUSEHWHEEL:
+			case WM_MOUSEMOVE:
+			{
+				window->handleMouseEvent(message, w_param, l_param);
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
 		return DefWindowProc(handle, message, w_param, l_param);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Common/common.hpp"
+#include "Engine/Event/EventManager.hpp"
 
 namespace nova
 {

@@ -8,6 +8,6 @@ namespace nova
 	class NOVA_API Win32WindowFactoryAdapter final: public IWindowFactoryAdapter
 	{
 	public:
-		[[nodiscard]] std::unique_ptr<IWindow> createWindow(const WindowSettings& settings) noexcept override;
+		[[nodiscard]] std::unique_ptr<IWindow> createWindow(const WindowSettings& settings, EventManager* event_manager) noexcept override;
 	};
 }

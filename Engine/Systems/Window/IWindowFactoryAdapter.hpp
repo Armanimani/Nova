@@ -12,6 +12,6 @@ namespace nova
 	{
 	public:
 		virtual ~IWindowFactoryAdapter() = default;
-		[[nodiscard]] virtual std::unique_ptr<IWindow> createWindow(const WindowSettings& settings) noexcept = 0;
+		[[nodiscard]] virtual std::unique_ptr<IWindow> createWindow(const WindowSettings& settings, EventManager* event_manager) noexcept = 0;
 	};
 }

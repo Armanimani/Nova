@@ -12,7 +12,7 @@ namespace nova
 	class NOVA_API WindowFactory
 	{
 	public:
-		static std::unique_ptr<IWindow> create(const WindowSettings& settings) noexcept;
+		static std::unique_ptr<IWindow> create(const WindowSettings& settings, EventManager* event_manager) noexcept;
 
 	private:
 		static IWindowFactoryAdapter* getAdapter();

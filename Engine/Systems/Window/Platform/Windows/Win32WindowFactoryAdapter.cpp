@@ -3,8 +3,8 @@
 
 namespace nova
 {
-	std::unique_ptr<IWindow> Win32WindowFactoryAdapter::createWindow(const WindowSettings& settings) noexcept
+	std::unique_ptr<IWindow> Win32WindowFactoryAdapter::createWindow(const WindowSettings& settings, EventManager* event_manager) noexcept
 	{
-		return std::make_unique<Win32Window>(settings);
+		return std::make_unique<Win32Window>(settings, event_manager);
 	}
 }

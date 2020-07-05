@@ -3,9 +3,9 @@
 
 namespace nova
 {
-	std::unique_ptr<IWindow> WindowFactory::create(const WindowSettings& settings) noexcept
+	std::unique_ptr<IWindow> WindowFactory::create(const WindowSettings& settings, EventManager* event_manager) noexcept
 	{
-		return getAdapter()->createWindow(settings);
+		return getAdapter()->createWindow(settings, event_manager);
 	}
 
 	IWindowFactoryAdapter* WindowFactory::getAdapter()

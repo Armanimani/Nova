@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Event\EventSpecification.cpp" />
     <ClCompile Include="Systems\Graphics\Context\GraphicContextFactory.cpp" />
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12Device.cpp" />
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactoryFactory.cpp" />
@@ -125,11 +126,13 @@
   <ItemGroup>
     <ClInclude Include="Application\Application.hpp" />
     <ClInclude Include="Application\Context.hpp" />
+    <ClInclude Include="Event\EventManager.hpp" />
+    <ClInclude Include="Event\EventSpecification.hpp" />
+    <ClInclude Include="Event\IEvent.hpp" />
     <ClInclude Include="Systems\Input\Codes\KeyCode.hpp" />
     <ClInclude Include="Systems\Input\Codes\MouseCode.hpp" />
     <ClInclude Include="Systems\Input\Component\InputComponent.hpp" />
     <ClInclude Include="Systems\Input\InputSystem.hpp" />
-    <ClInclude Include="Systems\Input\MouseEvent.hpp" />
     <ClInclude Include="Systems\ISystem.hpp" />
     <ClInclude Include="Common\common.hpp" />
     <ClInclude Include="Configuration\EngineConfiguration.hpp" />
@@ -161,6 +164,13 @@
     <ClInclude Include="Math\IntVector4.hpp" />
     <ClInclude Include="Math\Matrix4X4.hpp" />
     <ClInclude Include="Math\utilities.hpp" />
+    <ClInclude Include="Systems\Window\Event\WindowCloseEvent.hpp" />
+    <ClInclude Include="Systems\Window\Event\WindowCreateEvent.hpp" />
+    <ClInclude Include="Systems\Window\Event\WindowDestroyEvent.hpp" />
+    <ClInclude Include="Systems\Window\Event\WindowFocusEvent.hpp" />
+    <ClInclude Include="Systems\Window\Event\WindowResizeEvent.hpp" />
+    <ClInclude Include="Systems\Window\Event\WindowShowEvent.hpp" />
+    <ClInclude Include="Systems\Window\Event\window_events.hpp" />
     <ClInclude Include="Systems\Window\Platform\Windows\Win32Window.hpp" />
     <ClInclude Include="Systems\Window\Platform\Windows\Win32WindowFactoryAdapter.hpp" />
     <ClInclude Include="Systems\Window\Settings\WindowSettings.hpp" />
@@ -177,6 +187,9 @@
     <ClInclude Include="Systems\Window\Components\WindowComponent.hpp" />
     <ClInclude Include="Systems\Window\WindowFactory.hpp" />
     <ClInclude Include="Systems\Window\WindowSystem.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

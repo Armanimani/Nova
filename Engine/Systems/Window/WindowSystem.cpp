@@ -31,7 +31,7 @@ namespace nova
 		auto own_window = false;
 		if (!handle)
 		{
-			window = WindowFactory::create(settings);
+			window = WindowFactory::create(settings, &context->event_manager);
 			handle = window->getHandle();
 			own_window = true;
 		}
