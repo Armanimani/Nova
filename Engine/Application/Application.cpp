@@ -61,6 +61,8 @@ namespace nova
 		while (is_running)
 		{
 			frame_clock.tick();
+			
+			updateContext();
 			updateSystems(frame_clock.getLastTickTime().count());
 		}
 
@@ -71,6 +73,11 @@ namespace nova
 	{
 		ConsoleLogger::logInformation(k_engine_channel, "Finalizing");
 		finalizeSystems();
+	}
+
+	void Application::updateContext() const noexcept
+	{
+		context->event_manager.clear();
 	}
 
 	void Application::configureSystems() noexcept

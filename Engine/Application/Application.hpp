@@ -32,6 +32,8 @@ namespace nova
 		void update() noexcept;
 		void finalize() noexcept;
 
+		void updateContext() const noexcept;
+
 		void configureSystems() noexcept;
 		void initializeSystems() noexcept;
 		void updateSystems(Float delta_time) noexcept;
