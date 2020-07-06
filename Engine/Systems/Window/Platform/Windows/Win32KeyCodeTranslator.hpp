@@ -2,7 +2,7 @@
 
 #include "Engine/Systems/Input/Codes/KeyCode.hpp"
 
-#include <map>
+#include <unordered_map>
 
 namespace nova
 {
@@ -11,6 +11,6 @@ namespace nova
 	public:
 		static KeyCode translate(const UInt32 native_key) noexcept;
 	private:
-		static std::map<const UInt32, KeyCode> registry;
+		static std::unordered_map<const UInt32, KeyCode> registry;
 	};
 }
