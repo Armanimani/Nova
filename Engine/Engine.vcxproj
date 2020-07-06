@@ -132,6 +132,13 @@
     <ClInclude Include="Systems\Input\Codes\KeyCode.hpp" />
     <ClInclude Include="Systems\Input\Codes\MouseCode.hpp" />
     <ClInclude Include="Systems\Input\Component\InputComponent.hpp" />
+    <ClInclude Include="Systems\Input\Event\input_events.hpp" />
+    <ClInclude Include="Systems\Input\Event\KeyDownEvent.hpp" />
+    <ClInclude Include="Systems\Input\Event\KeyUpEvent.hpp" />
+    <ClInclude Include="Systems\Input\Event\MouseDownEvent.hpp" />
+    <ClInclude Include="Systems\Input\Event\MouseMoveEvent.hpp" />
+    <ClInclude Include="Systems\Input\Event\MouseUpEvent.hpp" />
+    <ClInclude Include="Systems\Input\Event\MouseWheelEvent.hpp" />
     <ClInclude Include="Systems\Input\InputSystem.hpp" />
     <ClInclude Include="Systems\ISystem.hpp" />
     <ClInclude Include="Common\common.hpp" />
