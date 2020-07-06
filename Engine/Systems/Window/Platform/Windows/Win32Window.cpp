@@ -1,6 +1,8 @@
 #include "Engine/Logging/ConsoleLogger.hpp"
 #include "Engine/Systems/Window/Platform/Windows/Win32Window.hpp"
 #include "Engine/Systems/Window/Event/window_events.hpp"
+#include "Engine/Systems/Input/Event/input_events.hpp"
+#include "Engine/Systems/Window/Platform/Windows/Win32KeyCodeTranslator.hpp"
 
 #include <string>
 
@@ -132,14 +134,93 @@ namespace nova
 		}
 	}
 
-	void Win32Window::handleKeyboardEvent(UINT message, WPARAM w_param, LPARAM l_param) noexcept
+	void Win32Window::handleKeyboardEvent(UINT message, WPARAM w_param, [[maybe_unused]] LPARAM l_param) noexcept
 	{
-		// TODO: Add the keyboard events
+		const auto key_code = Win32KeyCodeTranslator::translate(static_cast<UInt32>(w_param));
+
+		switch (message)
+		{
+			case WM_KEYDOWN:
+			case WM_SYSKEYDOWN:
+			{
+				event_manager->addEvent<KeyDownEvent>(std::make_unique<KeyDownEvent>(key_code));
+				break;
+			}
+			case WM_KEYUP:
+			case WM_SYSKEYUP:
+			{
+				event_manager->addEvent<KeyUpEvent>(std::make_unique<KeyUpEvent>(key_code));
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
 	}
 	
 	void Win32Window::handleMouseEvent(UINT message, WPARAM w_param, LPARAM l_param) noexcept
 	{
-		// TODO: add mouse events
+		const auto mouse_code = [=]()
+		{
+			switch (message)
+			{
+				case WM_LBUTTONUP:
+				case WM_LBUTTONDOWN:
+				{
+					return MouseCode::MOUSE_LEFT;
+				}
+				case WM_RBUTTONUP:
+				case WM_RBUTTONDOWN:
+				{
+					return MouseCode::MOUSE_RIGHT;
+				}
+				case WM_MBUTTONUP:
+				case WM_MBUTTONDOWN:
+				{
+					return MouseCode::MOUSE_MIDDLE;
+				}
+				default:
+				{
+					return MouseCode::MOUSE_NO_CODE;
+				}
+			}	
+		}();
+		
+		switch (message)
+		{
+			case WM_LBUTTONDOWN:
+			case WM_RBUTTONDOWN:
+			case WM_MBUTTONDOWN:
+			{
+				event_manager->addEvent<MouseDownEvent>(std::make_unique<MouseDownEvent>(mouse_code));
+				break;
+			}
+			case WM_LBUTTONUP:
+			case WM_RBUTTONUP:
+			case WM_MBUTTONUP:
+			{
+				event_manager->addEvent<MouseUpEvent>(std::make_unique<MouseUpEvent>(mouse_code));
+				break;
+			}
+			case WM_MOUSEHWHEEL:
+			{
+				const auto increment = GET_WHEEL_DELTA_WPARAM(w_param);
+				event_manager->addEvent<MouseWheelEvent>(std::make_unique<MouseWheelEvent>(increment));
+				break;
+			}
+			case WM_MOUSEMOVE:
+			{
+				POINT pos;
+				GetCursorPos(&pos);
+				ScreenToClient(handle, &pos);
+				const auto position_x = static_cast<UInt32>(pos.x);
+				const auto position_y = static_cast<UInt32>(pos.y);
+
+				event_manager->addEvent<MouseMoveEvent>(std::make_unique<MouseMoveEvent>(position_x, position_y));
+				break;
+			}
+		}
 	}
 
 	void* Win32Window::getHandle() const noexcept

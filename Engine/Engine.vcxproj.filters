@@ -111,6 +111,9 @@
     <ClCompile Include="Event\EventSpecification.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Window\Platform\Windows\Win32KeyCodeTranslator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Application.hpp">
@@ -321,6 +324,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Input\Event\input_events.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Window\Platform\Windows\Win32KeyCodeTranslator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -114,6 +114,7 @@
     <ClCompile Include="Systems\Input\Codes\MouseCode.cpp" />
     <ClCompile Include="Systems\Input\Component\InputComponent.cpp" />
     <ClCompile Include="Systems\Input\InputSystem.cpp" />
+    <ClCompile Include="Systems\Window\Platform\Windows\Win32KeyCodeTranslator.cpp" />
     <ClCompile Include="Systems\Window\Platform\Windows\Win32Window.cpp" />
     <ClCompile Include="Systems\Window\Platform\Windows\Win32WindowFactoryAdapter.cpp" />
     <ClCompile Include="Time\CalenderClock.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Systems\Window\Event\WindowResizeEvent.hpp" />
     <ClInclude Include="Systems\Window\Event\WindowShowEvent.hpp" />
     <ClInclude Include="Systems\Window\Event\window_events.hpp" />
+    <ClInclude Include="Systems\Window\Platform\Windows\Win32KeyCodeTranslator.hpp" />
     <ClInclude Include="Systems\Window\Platform\Windows\Win32Window.hpp" />
     <ClInclude Include="Systems\Window\Platform\Windows\Win32WindowFactoryAdapter.hpp" />
     <ClInclude Include="Systems\Window\Settings\WindowSettings.hpp" />
