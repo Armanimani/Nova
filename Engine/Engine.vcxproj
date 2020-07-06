@@ -114,6 +114,8 @@
     <ClCompile Include="Systems\Input\Codes\MouseCode.cpp" />
     <ClCompile Include="Systems\Input\Component\InputComponent.cpp" />
     <ClCompile Include="Systems\Input\InputSystem.cpp" />
+    <ClCompile Include="Systems\Input\Utility\KeyCodeTranslator.cpp" />
+    <ClCompile Include="Systems\Input\Utility\MouseCodeTranslator.cpp" />
     <ClCompile Include="Systems\Window\Platform\Windows\Win32KeyCodeTranslator.cpp" />
     <ClCompile Include="Systems\Window\Platform\Windows\Win32Window.cpp" />
     <ClCompile Include="Systems\Window\Platform\Windows\Win32WindowFactoryAdapter.cpp" />
@@ -141,6 +143,8 @@
     <ClInclude Include="Systems\Input\Event\MouseUpEvent.hpp" />
     <ClInclude Include="Systems\Input\Event\MouseWheelEvent.hpp" />
     <ClInclude Include="Systems\Input\InputSystem.hpp" />
+    <ClInclude Include="Systems\Input\Utility\KeyCodeTranslator.hpp" />
+    <ClInclude Include="Systems\Input\Utility\MouseCodeTranslator.hpp" />
     <ClInclude Include="Systems\ISystem.hpp" />
     <ClInclude Include="Common\common.hpp" />
     <ClInclude Include="Configuration\EngineConfiguration.hpp" />

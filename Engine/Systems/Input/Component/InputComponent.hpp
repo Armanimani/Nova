@@ -4,6 +4,7 @@
 #include "Engine/Math/IntVector2.hpp"
 #include "Engine/Systems/Input/Codes/KeyCode.hpp"
 #include "Engine/Systems/Input/Codes/MouseCode.hpp"
+#include "Engine/Systems/Input/Event/input_events.hpp"
 
 namespace nova
 {
@@ -11,6 +12,16 @@ namespace nova
 	{
 	public:
 		using MouseWheelValue = Int32;
+
+		void update() noexcept;
+		
+		void processEvent(const KeyDownEvent* registered_event, Float delta_time) noexcept;
+		void processEvent(const KeyUpEvent* registered_event, Float delta_time) noexcept;
+
+		void processEvent(const MouseDownEvent* registered_event, Float delta_time) noexcept;
+		void processEvent(const MouseUpEvent* registered_event, Float delta_time) noexcept;
+		void processEvent(const MouseWheelEvent* registered_event, Float delta_time) noexcept;
+		void processEvent(const MouseMoveEvent* registered_event, Float delta_time) noexcept;
 		
 		[[nodiscard]] Bool isKeyDown(KeyCode key_code) const noexcept;
 		[[nodiscard]] Bool isKeyUp(KeyCode key_code) const noexcept;

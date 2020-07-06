@@ -2,6 +2,45 @@
 
 namespace nova
 {
+	void InputComponent::update() noexcept
+	{
+		previous_key_state = current_key_state;
+		
+		previous_mouse_button_state = current_mouse_button_state;
+		previous_mouse_position = current_mouse_position;
+		previous_mouse_wheel_value = current_mouse_wheel_value;
+	}
+
+	void InputComponent::processEvent(const KeyDownEvent* registered_event, [[maybe_unused]] const Float delta_time) noexcept
+	{
+		current_key_state = current_key_state | registered_event->key;
+	}
+
+	void InputComponent::processEvent(const KeyUpEvent* registered_event, [[maybe_unused]] const Float delta_time) noexcept
+	{
+		current_key_state = current_key_state & !registered_event->key;
+	}
+
+	void InputComponent::processEvent(const MouseDownEvent* registered_event, [[maybe_unused]] const Float delta_time) noexcept
+	{
+		current_mouse_button_state = current_mouse_button_state | registered_event->button;
+	}
+
+	void InputComponent::processEvent(const MouseUpEvent* registered_event, [[maybe_unused]] const Float delta_time) noexcept
+	{
+		current_mouse_button_state = current_mouse_button_state & !registered_event->button;
+	}
+
+	void InputComponent::processEvent(const MouseWheelEvent* registered_event, [[maybe_unused]] const Float delta_time) noexcept
+	{
+		current_mouse_wheel_value = current_mouse_wheel_value + registered_event->increment;
+	}
+
+	void InputComponent::processEvent(const MouseMoveEvent* registered_event, [[maybe_unused]] const Float delta_time) noexcept
+	{
+		current_mouse_position = { registered_event->position_x, registered_event->position_y };
+	}
+
 	Bool InputComponent::isKeyDown(const KeyCode key_code) const noexcept
 	{
 		return !isKeyUp(key_code);
