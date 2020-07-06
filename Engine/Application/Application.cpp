@@ -11,6 +11,19 @@
 
 namespace nova
 {
+	template<typename Function>
+	void timedExecution(const std::string& action_name, Function&& func)
+	{
+		ConsoleLogger::logInformation(k_engine_channel, action_name + "...");
+		auto stop_watch = StopWatch();
+		stop_watch.start();
+
+		func();
+		
+		const auto elapsed_time = stop_watch.getElapsedTime().count();
+		ConsoleLogger::logInformation(k_engine_channel, action_name + " Done! took " + std::to_string(elapsed_time) + " ms");
+	}
+	
 	Application::Application()
 	{
 		context = std::make_unique<Context>();
@@ -34,21 +47,20 @@ namespace nova
 
 	void Application::configure() noexcept
 	{
-		ConsoleLogger::logInformation(k_engine_channel, "Configuring...");
-		configureSystems();
+		timedExecution("Configuring", [=]()
+			{
+				configureSystems();
+			}
+		);
 	}
 
 	void Application::initialize() noexcept
 	{
-		auto stop_watch = StopWatch();
-		stop_watch.start();
-		
-		ConsoleLogger::logInformation(k_engine_channel, "Initializing...");
-		initializeSystems();
-
-		stop_watch.stop();
-		const auto elapsed_time = stop_watch.getElapsedTime().count();
-		ConsoleLogger::logInformation(k_engine_channel, "Initializing Done! took " + std::to_string(elapsed_time) + " ms");
+		timedExecution("Initializing", [=]()
+			{
+				initializeSystems();
+			}
+		);
 	}
 
 	void Application::update() noexcept
@@ -71,8 +83,11 @@ namespace nova
 	
 	void Application::finalize() noexcept
 	{
-		ConsoleLogger::logInformation(k_engine_channel, "Finalizing");
-		finalizeSystems();
+		timedExecution("Initializing", [=]()
+			{
+				finalizeSystems();
+			}
+		);
 	}
 
 	void Application::updateContext() const noexcept
