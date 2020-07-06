@@ -53,4 +53,10 @@ namespace nova
 	{
 		return lhs ^ static_cast<UInt32>(rhs);
 	}
+
+
+	UInt32 operator!(const MouseCode mouse_code)
+	{
+		return !static_cast<UInt32>(mouse_code);
+	}
 };

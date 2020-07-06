@@ -194,4 +194,6 @@ namespace nova
 	UInt32 operator&(UInt32 lhs, KeyCode rhs);
 	UInt32 operator^(KeyCode lhs, UInt32 rhs);
 	UInt32 operator^(UInt32 lhs, KeyCode rhs);
+	
+	UInt32 operator!(KeyCode key_code);
 }

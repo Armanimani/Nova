@@ -53,4 +53,9 @@ namespace nova
 	{
 		return lhs ^ static_cast<UInt32>(rhs);
 	}
+
+	UInt32 operator!(KeyCode key_code)
+	{
+		return !(static_cast<UInt32>(key_code));
+	}
 }

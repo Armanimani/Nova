@@ -24,4 +24,6 @@ namespace nova
 	UInt32 operator&(UInt32 lhs, MouseCode rhs);
 	UInt32 operator^(MouseCode lhs, UInt32 rhs);
 	UInt32 operator^(UInt32 lhs, MouseCode rhs);
+
+	UInt32 operator!(MouseCode mouse_code);
 }
