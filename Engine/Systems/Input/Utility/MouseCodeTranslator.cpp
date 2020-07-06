@@ -2,7 +2,7 @@
 
 namespace nova
 {
-	std::unordered_map<const MouseCode, std::string> MouseCodeTranslator::registry
+	std::map<const MouseCode, std::string> MouseCodeTranslator::registry
 	{
 		{ MouseCode::MOUSE_NO_CODE, "NoCode" },
 		{ MouseCode::MOUSE_LEFT, "LeftClick" },

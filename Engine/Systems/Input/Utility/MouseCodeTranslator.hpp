@@ -3,7 +3,7 @@
 #include "Engine/Systems/Input/Codes/MouseCode.hpp"
 
 #include <string>
-#include <unordered_map>
+#include <map>
 
 namespace nova
 {
@@ -12,6 +12,6 @@ namespace nova
 	public:
 		static std::string translate(MouseCode mouse_code) noexcept;
 	private:
-		static std::unordered_map<const MouseCode, std::string> registry;
+		static std::map<const MouseCode, std::string> registry;
 	};
 }

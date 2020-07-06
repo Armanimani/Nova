@@ -3,7 +3,7 @@
 #include "Engine/Systems/Input/Codes/KeyCode.hpp"
 
 #include <string>
-#include <unordered_map>
+#include <map>
 
 namespace nova
 {
@@ -12,6 +12,6 @@ namespace nova
 	public:
 		static std::string translate(KeyCode key_code) noexcept;
 	private:
-		static std::unordered_map<const KeyCode, std::string> registry;
+		static std::map<const KeyCode, std::string> registry;
 	};
 }

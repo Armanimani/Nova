@@ -4,7 +4,7 @@
 
 namespace nova
 {
-	std::unordered_map<const UInt32, KeyCode> Win32KeyCodeTranslator::registry
+	std::map<const UInt32, KeyCode> Win32KeyCodeTranslator::registry
 	{
 		{ VK_NONAME, KeyCode::KEY_NO_CODE },
 

@@ -2,7 +2,7 @@
 
 namespace nova
 {
-	std::unordered_map<const KeyCode, std::string> KeyCodeTranslator::registry
+	std::map<const KeyCode, std::string> KeyCodeTranslator::registry
 	{
 		{ KeyCode::KEY_NO_CODE, "NoCode" },
 
