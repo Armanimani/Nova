@@ -25,15 +25,18 @@ namespace nova
 		createFences();
 		createCommandObjects();
 		createSwapChain();
-		createRtvAndDsvDescriptorHeaps();
+		createDescriptorHeaps();
+		createRtvAndDsv();
 	}
 
-	void DX12GraphicContext::createRtvAndDsvDescriptorHeaps() noexcept
+	void DX12GraphicContext::createDescriptorHeaps() noexcept
 	{
 		rtv_descriptor_heap = device->createDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_RTV, buffer_count);
 		dsv_descriptor_heap = device->createDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_DSV, buffer_count);
+	}
 
-		// TODO: Move this to resize event
+	void DX12GraphicContext::createRtvAndDsv() noexcept
+	{
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 		for (UInt32 i = 0; i != buffer_count; ++i)
 		{
@@ -42,12 +45,25 @@ namespace nova
 
 			if (FAILED(result))
 			{
-				ConsoleLogger::logCritical(k_dx12_channel, "Unable to get the back buffer from swap chain for DirectX12");
+				ConsoleLogger::logCritical(k_dx12_channel, "Unable to get the back buffer from swap chain");
 			}
 
 			device->getNative()->CreateRenderTargetView(back_buffer_list[i].Get(), nullptr, rtv_handle);
 			rtv_handle.Offset(rtv_descriptor_size);
 		}
+	}
+
+	void DX12GraphicContext::setupViewport(const UInt32 width, const UInt32 height) const noexcept
+	{
+		D3D12_VIEWPORT viewport;
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		viewport.Width = static_cast<Float>(width);
+		viewport.Height = static_cast<Float>(height);
+		viewport.MinDepth = 0.0f;
+		viewport.MaxDepth = 1.0f;
+		graphic_command_list->RSSetViewports(1, &viewport);
+		// TODO: Define this as a separate graphic command. It should be added to the queue (delayed) and processed when rendering the new frame.
 	}
 
 	void DX12GraphicContext::createCommandObjects() noexcept
@@ -120,10 +136,25 @@ namespace nova
 		}
 	}
 
-	void DX12GraphicContext::handleResize() const noexcept
+	void DX12GraphicContext::handleWindowResizeEvent(const UInt32 width, const UInt32 height) noexcept
 	{
-		//TODO
+		waitForPreviousFrame();
 		assert(device);
+		assert(swap_chain);
+
+		for (UInt32 i = 0; i != back_buffer_list.size(); ++i)
+		{
+			back_buffer_list[i].Reset();
+		}
+
+		// TODO: The format need to be same as the one the swap chain is created with, this need to be refactored.
+		if (FAILED(swap_chain->ResizeBuffers(buffer_count, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH)))
+		{
+			ConsoleLogger::logCritical(k_dx12_channel, "Unable to resize the back buffers for swap chain");
+		}
+		
+		createRtvAndDsv();
+		setupViewport(width, height);
 	}
 
 	void DX12GraphicContext::waitForPreviousFrame() noexcept
@@ -131,7 +162,6 @@ namespace nova
 		frame_index = swap_chain->GetCurrentBackBufferIndex();
 		fence_list[frame_index].wait();
 	}
-
 
 	void DX12GraphicContext::updatePipeline() noexcept
 	{

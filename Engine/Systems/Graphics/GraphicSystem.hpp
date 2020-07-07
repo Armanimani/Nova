@@ -20,5 +20,7 @@ namespace nova
 		std::unique_ptr<IGraphicContext> graphic_context{ nullptr };
 
 		static void initializeComponent(Context* context) noexcept;
+
+		void processResizeEvent(const EventManager& event_manager) noexcept;
 	};
 }

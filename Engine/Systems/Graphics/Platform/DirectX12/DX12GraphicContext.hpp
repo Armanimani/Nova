@@ -22,7 +22,8 @@ namespace nova
 		void present() noexcept override;
 		void finalize() noexcept override;
 
-		void handleResize() const noexcept;
+
+		void handleWindowResizeEvent(UInt32 width, UInt32 height) noexcept override;
 	private:
 		HWND handle{};
 		UInt32 buffer_count{};
@@ -46,7 +47,8 @@ namespace nova
 		void createFences() noexcept;
 		void createCommandObjects() noexcept;
 		void createSwapChain() noexcept;
-		void createRtvAndDsvDescriptorHeaps() noexcept;
+		void createDescriptorHeaps() noexcept;
+		void createRtvAndDsv() noexcept;
 
 		[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE getCurrentBackBufferViewHandle() const noexcept;
 		[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE getCurrentDepthStencilViewHandle() const noexcept;
@@ -54,5 +56,7 @@ namespace nova
 		
 		void waitForPreviousFrame() noexcept;
 		void updatePipeline() noexcept;
+		
+		void setupViewport(UInt32 width, UInt32 height) const noexcept;
 	};
 }

@@ -3,6 +3,7 @@
 #include "Engine/Systems/Graphics/Context/GraphicContextFactory.hpp"
 #include "Engine/Systems/Graphics/Settings/GraphicSettings.hpp"
 #include "Engine/Systems/Window/Components/WindowComponent.hpp"
+#include "Engine/Systems/Window/Event/WindowResizeEvent.hpp"
 
 namespace nova
 {
@@ -19,6 +20,9 @@ namespace nova
 	
 	void GraphicSystem::update([[maybe_unused]] Context* context, [[maybe_unused]] Float delta_time) noexcept
 	{
+		const auto& event_manager = context->event_manager;
+		processResizeEvent(event_manager);
+		
 		graphic_context->present();
 	}
 	
@@ -35,5 +39,17 @@ namespace nova
 		auto& component = context->entity_manager.get<GraphicComponent>(context->master_entity);
 		const auto settings = context->entity_manager.get<GraphicSettings>(context->master_entity);
 		component.is_v_sync_on = settings.is_v_sync_enabled;
+	}
+
+	void GraphicSystem::processResizeEvent(const EventManager& event_manager) noexcept
+	{
+		event_manager.enumerateEvents<WindowResizeEvent>(
+			[=](const WindowResizeEvent* registered_event)
+			{
+				const auto width = registered_event->width;
+				const auto height = registered_event->height;
+				graphic_context->handleWindowResizeEvent(width, height);
+			}
+		);
 	}
 }
