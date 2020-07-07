@@ -129,11 +129,7 @@ namespace nova
 	
 	void DX12GraphicContext::finalize() noexcept
 	{
-		for (UInt32 i = 0; i != buffer_count; ++i)
-		{
-			frame_index = i;
-			waitForPreviousFrame();
-		}
+
 	}
 
 	void DX12GraphicContext::handleWindowResizeEvent(const UInt32 width, const UInt32 height) noexcept

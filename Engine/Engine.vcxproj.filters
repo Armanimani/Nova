@@ -120,6 +120,9 @@
     <ClCompile Include="Systems\Input\Utility\MouseCodeTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Exit\ExitSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Application.hpp">
@@ -339,6 +342,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Input\Utility\MouseCodeTranslator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Exit\ExitSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

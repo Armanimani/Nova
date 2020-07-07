@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Event\EventSpecification.cpp" />
+    <ClCompile Include="Systems\Exit\ExitSystem.cpp" />
     <ClCompile Include="Systems\Graphics\Context\GraphicContextFactory.cpp" />
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12Device.cpp" />
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactoryFactory.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="Event\EventManager.hpp" />
     <ClInclude Include="Event\EventSpecification.hpp" />
     <ClInclude Include="Event\IEvent.hpp" />
+    <ClInclude Include="Systems\Exit\ExitSystem.hpp" />
     <ClInclude Include="Systems\Input\Codes\KeyCode.hpp" />
     <ClInclude Include="Systems\Input\Codes\MouseCode.hpp" />
     <ClInclude Include="Systems\Input\Component\InputComponent.hpp" />

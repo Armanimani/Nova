@@ -5,6 +5,7 @@
 #include "Engine/Systems/Input/InputSystem.hpp"
 #include "Engine/Systems/Graphics/GraphicSystem.hpp"
 #include "Engine/Systems/Window/Settings/WindowSettings.hpp"
+#include "Engine/Systems/Exit/ExitSystem.hpp"
 #include "Engine/Systems/Graphics/Settings/GraphicSettings.hpp"
 #include <string>
 
@@ -69,6 +70,8 @@ int main()
 	graphic_settings.api = nova::GraphicApi::direct_x12;
 	application.addSettings(graphic_settings);
 	application.addSystem(std::make_unique<nova::GraphicSystem>());
+
+	application.addSystem(std::make_unique<nova::ExitSystem>());
 	
 	application.start();
 }

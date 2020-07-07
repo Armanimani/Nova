@@ -29,6 +29,9 @@ namespace nova
 
 		template<typename EventType, typename VisitorFunc>
 		void enumerateEvents(VisitorFunc&& visitor_function) const noexcept;
+
+		template<typename EventType>
+		Bool containEvent() const noexcept;
 	private:
 		std::vector<EventSpecification> event_registry;
 
@@ -63,6 +66,21 @@ namespace nova
 			const auto registered_event = static_cast<EventType*>(event_specification.registered_event.get());
 			visitor_function(registered_event);
 		}
+	}
+
+	template <typename EventType>
+	Bool EventManager::containEvent() const noexcept
+	{
+		const auto event_type_id = getEventTypeId<EventType>();
+
+		for (auto& event_specification : event_registry)
+		{
+			if (event_specification.event_type_id == event_type_id)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	template <typename EventType>
