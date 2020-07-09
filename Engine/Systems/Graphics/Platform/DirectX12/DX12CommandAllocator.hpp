@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Engine/Systems/Graphics/Platform/DirectX12/DX12Common.hpp"
-#include "Engine/Common/common.hpp"
 
 namespace nova
 {
