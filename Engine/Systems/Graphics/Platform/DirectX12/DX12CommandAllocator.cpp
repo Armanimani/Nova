@@ -3,9 +3,9 @@
 
 namespace nova
 {
-	DX12CommandAllocator::DX12CommandAllocator(ID3D12Device* device, const D3D12_COMMAND_LIST_TYPE command_list_type)
+	DX12CommandAllocator::DX12CommandAllocator(DX12Device* device, const D3D12_COMMAND_LIST_TYPE command_list_type)
 	{
-		if (FAILED(device->CreateCommandAllocator(command_list_type, IID_PPV_ARGS(&command_allocator))))
+		if (FAILED(device->get()->CreateCommandAllocator(command_list_type, IID_PPV_ARGS(&command_allocator))))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create command allocator!");
 	}
 
