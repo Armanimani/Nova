@@ -48,7 +48,7 @@ namespace nova
 				ConsoleLogger::logCritical(k_dx12_channel, "Unable to get the back buffer from swap chain");
 			}
 
-			device->getNative()->CreateRenderTargetView(back_buffer_list[i].Get(), nullptr, rtv_handle);
+			device->get()->CreateRenderTargetView(back_buffer_list[i].Get(), nullptr, rtv_handle);
 			rtv_handle.Offset(rtv_descriptor_size);
 		}
 	}
@@ -85,7 +85,7 @@ namespace nova
 	{
 		for (UInt32 i = 0; i != buffer_count; ++i)
 		{
-			const auto fence = DX12Fence(device->getNative(), D3D12_FENCE_FLAG_NONE);
+			const auto fence = DX12Fence(device->get(), D3D12_FENCE_FLAG_NONE);
 			fence_list.push_back(fence);
 		}
 	}

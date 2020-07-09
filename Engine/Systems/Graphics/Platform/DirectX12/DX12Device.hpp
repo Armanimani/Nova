@@ -25,7 +25,7 @@ namespace nova
 		[[nodiscard]] UInt32 getDsvDescriptorSize() const noexcept;
 		[[nodiscard]] UInt32 getCbvSrvUavDescriptorSize() const noexcept;
 
-		[[nodiscard]] ID3D12Device* getNative() const noexcept;
+		[[nodiscard]] ID3D12Device* get() const noexcept;
 	private:
 		Microsoft::WRL::ComPtr<ID3D12Device> device{};
 		Microsoft::WRL::ComPtr<ID3D12Debug3> debug{};

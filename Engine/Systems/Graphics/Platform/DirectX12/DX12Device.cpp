@@ -95,7 +95,7 @@ namespace nova
 		return getDescriptorSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	}
 
-	ID3D12Device* DX12Device::getNative() const noexcept
+	ID3D12Device* DX12Device::get() const noexcept
 	{
 		return device.Get();
 	}
