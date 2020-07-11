@@ -9,7 +9,7 @@ namespace nova
 	public:
 		DX12CommandAllocator(DX12Device* device, D3D12_COMMAND_LIST_TYPE command_list_type);
 
-		[[nodiscard]] ID3D12CommandAllocator* get() const noexcept;
+		[[nodiscard]] ID3D12CommandAllocator* getNative() const noexcept;
 	private:
 		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> command_allocator{ nullptr };
 	};

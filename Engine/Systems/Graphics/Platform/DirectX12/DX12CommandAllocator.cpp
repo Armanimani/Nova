@@ -9,7 +9,7 @@ namespace nova
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create command allocator!");
 	}
 
-	ID3D12CommandAllocator* DX12CommandAllocator::get() const noexcept
+	ID3D12CommandAllocator* DX12CommandAllocator::getNative() const noexcept
 	{
 		return command_allocator.Get();
 	}

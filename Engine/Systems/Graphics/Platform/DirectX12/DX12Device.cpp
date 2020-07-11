@@ -29,31 +29,6 @@ namespace nova
 		return command_queue;
 	}
 
-	Microsoft::WRL::ComPtr<ID3D12CommandAllocator> DX12Device::createCommandAllocator(
-		const D3D12_COMMAND_LIST_TYPE type) const noexcept
-	{
-		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> command_allocator{};
-
-		if (FAILED(device->CreateCommandAllocator(type, IID_PPV_ARGS(&command_allocator))))
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create command allocator!");
-
-		return command_allocator;
-	}
-
-
-	Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> DX12Device::createCommandList(
-		const D3D12_COMMAND_LIST_TYPE type,
-		const Microsoft::WRL::ComPtr<ID3D12CommandAllocator>& allocator) const noexcept
-	{
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> command_list{};
-
-		if (FAILED(device->CreateCommandList(0, type, allocator.Get(), nullptr, IID_PPV_ARGS(&command_list))))
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create the command list!");
-
-		command_list->Close();
-		return command_list;
-	}
-
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> DX12Device::createDescriptorHeap(
 		const D3D12_DESCRIPTOR_HEAP_TYPE type,
 		const UInt32 number) const noexcept

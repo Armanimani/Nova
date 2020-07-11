@@ -12,10 +12,7 @@ namespace nova
 
 		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D12CommandQueue>createCommandQueue(
 			D3D12_COMMAND_LIST_TYPE type, D3D12_COMMAND_QUEUE_PRIORITY priority) const noexcept;
-		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D12CommandAllocator> createCommandAllocator(
-			D3D12_COMMAND_LIST_TYPE type) const noexcept;
-		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> createCommandList(
-			D3D12_COMMAND_LIST_TYPE type, const Microsoft::WRL::ComPtr<ID3D12CommandAllocator>& allocator) const noexcept;
+
 		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> createDescriptorHeap(
 			D3D12_DESCRIPTOR_HEAP_TYPE type, UInt32 number) const noexcept;	
 		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D12QueryHeap> createQueryHeap(

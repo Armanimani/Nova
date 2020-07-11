@@ -45,7 +45,7 @@ namespace nova
 
 			if (FAILED(result))
 			{
-				ConsoleLogger::logCritical(k_dx12_channel, "Unable to get the back buffer from swap chain");
+				ConsoleLogger::logCritical(k_dx12_channel, "Unable to getNative the back buffer from swap chain");
 			}
 
 			device->get()->CreateRenderTargetView(back_buffer_list[i].Get(), nullptr, rtv_handle);
@@ -62,7 +62,7 @@ namespace nova
 		viewport.Height = static_cast<Float>(height);
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
-		graphic_command_list->RSSetViewports(1, &viewport);
+		graphic_command_list->getNative()->RSSetViewports(1, &viewport);
 		// TODO: Define this as a separate graphic command. It should be added to the queue (delayed) and processed when rendering the new frame.
 	}
 
@@ -71,9 +71,9 @@ namespace nova
 		graphic_command_queue = device->createCommandQueue(D3D12_COMMAND_LIST_TYPE_DIRECT, D3D12_COMMAND_QUEUE_PRIORITY_NORMAL);
 
 		for (UInt32 i = 0; i != buffer_count; ++i)
-			command_allocator_list.push_back(device->createCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT));
+			command_allocator_list.push_back(std::make_unique<DX12CommandAllocator>(device.get(), D3D12_COMMAND_LIST_TYPE_DIRECT));
 
-		graphic_command_list = device->createCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator_list[0]);
+		graphic_command_list = std::make_unique<DX12CommandList>(device.get(), command_allocator_list[0].get(), D3D12_COMMAND_LIST_TYPE_DIRECT);
 	}
 
 	void DX12GraphicContext::createSwapChain() noexcept
@@ -114,7 +114,7 @@ namespace nova
 
 		ID3D12CommandList* const command_list[] =
 		{
-			graphic_command_list.Get()
+			graphic_command_list->getNative()
 		};
 
 		graphic_command_queue->ExecuteCommandLists(1, command_list);
@@ -163,25 +163,25 @@ namespace nova
 	{
 		waitForPreviousFrame();
 
-		if (FAILED(command_allocator_list[frame_index]->Reset()))
+		if (FAILED(command_allocator_list[frame_index]->getNative()->Reset()))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to reset the command allocator");
 
-		if (FAILED(graphic_command_list->Reset(command_allocator_list[frame_index].Get(), NULL)))
+		if (FAILED(graphic_command_list->getNative()->Reset(command_allocator_list[frame_index]->getNative(), NULL)))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to reset the command allocator");
 
 		const auto rtv_barrier = CD3DX12_RESOURCE_BARRIER::Transition(getCurrentBackBuffer(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-		graphic_command_list->ResourceBarrier(1, &rtv_barrier);
+		graphic_command_list->getNative()->ResourceBarrier(1, &rtv_barrier);
 
 		CD3DX12_CPU_DESCRIPTOR_HANDLE descriptor_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), frame_index, rtv_descriptor_size);
-		graphic_command_list->OMSetRenderTargets(1, &descriptor_handle, FALSE, nullptr);
+		graphic_command_list->getNative()->OMSetRenderTargets(1, &descriptor_handle, FALSE, nullptr);
 
 		const float color[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-		graphic_command_list->ClearRenderTargetView(descriptor_handle, color, 0, nullptr);
+		graphic_command_list->getNative()->ClearRenderTargetView(descriptor_handle, color, 0, nullptr);
 
 		const auto state_present_barrier = CD3DX12_RESOURCE_BARRIER::Transition(back_buffer_list[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
-		graphic_command_list->ResourceBarrier(1, &state_present_barrier);
+		graphic_command_list->getNative()->ResourceBarrier(1, &state_present_barrier);
 
-		if (FAILED(graphic_command_list->Close()))
+		if (FAILED(graphic_command_list->getNative()->Close()))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to close the graphic command list");
 	}
 }

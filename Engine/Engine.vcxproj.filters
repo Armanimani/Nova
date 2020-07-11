@@ -123,6 +123,12 @@
     <ClCompile Include="Systems\Exit\ExitSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12CommandAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12CommandList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Application.hpp">
@@ -345,6 +351,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Exit\ExitSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12CommandAllocator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12CommandList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

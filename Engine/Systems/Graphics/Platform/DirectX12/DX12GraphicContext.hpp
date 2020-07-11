@@ -6,6 +6,8 @@
 
 #include "Engine/Systems/Graphics/Context/IGraphicContext.hpp"
 #include "Engine/Systems/Graphics/Settings/GraphicSettings.hpp"
+#include "Engine/Systems/Graphics/Platform/DirectX12/DX12CommandList.hpp"
+#include "Engine/Systems/Graphics/Platform/DirectX12/DX12CommandAllocator.hpp"
 #include "Engine/Systems/Graphics/Platform/DirectX12/DX12Common.hpp"
 #include "Engine/Systems/Graphics/Platform/DirectX12/DX12Device.hpp"
 #include "Engine/Systems/Graphics/Platform/DirectX12/DX12Fence.hpp"
@@ -31,13 +33,13 @@ namespace nova
 		
 		std::unique_ptr<DX12Device> device{ nullptr };
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> swap_chain{};
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> graphic_command_list{};
+		std::unique_ptr<DX12CommandList> graphic_command_list{};
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> graphic_command_queue{};
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap{};
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsv_descriptor_heap{};
 
 		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource1>> back_buffer_list{};
-		std::vector<Microsoft::WRL::ComPtr<ID3D12CommandAllocator>> command_allocator_list{};
+		std::vector<std::unique_ptr<DX12CommandAllocator>> command_allocator_list{};
 		std::vector<DX12Fence> fence_list{};
 
 		UInt32 rtv_descriptor_size{};
