@@ -3,36 +3,47 @@
 
 namespace nova
 {
-	DX12Fence::DX12Fence(const Microsoft::WRL::ComPtr<ID3D12Device>& device, const D3D12_FENCE_FLAGS flags)
+	DX12Fence::DX12Fence(const Microsoft::WRL::ComPtr<ID3D12Device>& device, const UInt64 initial_value, const D3D12_FENCE_FLAGS flags)
+		: value{ initial_value }
 	{
-		value = 0;
 		if (FAILED(device->CreateFence(value, flags, IID_PPV_ARGS(&fence))))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create fence!");
+	}
 
-		handle = CreateEvent(nullptr, FALSE, FALSE, nullptr);
-
-		if (!handle)
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create windows event for fence!");
+	DX12Fence::~DX12Fence()
+	{
+		if (handle_complete_event != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(handle_complete_event);
+			handle_complete_event = INVALID_HANDLE_VALUE;
+		}
 	}
 
 	void DX12Fence::wait() noexcept
 	{
 		if (!isSignaled())
 		{
-			if (FAILED(fence->SetEventOnCompletion(value, handle)))
+			initializeCompleteHandleEvent();
+			
+			if (FAILED(fence->SetEventOnCompletion(value, handle_complete_event)))
 			{
 				ConsoleLogger::logCritical(k_dx12_channel, "Unable to set the event for fence");
 			}
 
-			WaitForSingleObject(handle, INFINITE);
+			WaitForSingleObject(handle_complete_event, INFINITE);
 		}
 
 		value++;
 	}
 
-	ID3D12Fence1* DX12Fence::getNativeFence() const noexcept
+	ID3D12Fence1* DX12Fence::getNative() const noexcept
 	{
 		return fence.Get();
+	}
+
+	UINT64 DX12Fence::getValue() const noexcept
+	{
+		return value;
 	}
 
 	Bool DX12Fence::isSignaled() const noexcept
@@ -40,13 +51,11 @@ namespace nova
 		return fence->GetCompletedValue() > value;
 	}
 
-	UInt64 DX12Fence::getNextValue() const noexcept
+	void DX12Fence::initializeCompleteHandleEvent() noexcept
 	{
-		return value + 1;
-	}
+		handle_complete_event = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
-	UInt64 DX12Fence::getValue() const noexcept
-	{
-		return value;
+		if (!handle_complete_event)
+			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create windows event for fence!");
 	}
 }

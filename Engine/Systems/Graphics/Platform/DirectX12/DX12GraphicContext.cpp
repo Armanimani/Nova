@@ -85,8 +85,8 @@ namespace nova
 	{
 		for (UInt32 i = 0; i != buffer_count; ++i)
 		{
-			const auto fence = DX12Fence(device->get(), D3D12_FENCE_FLAG_NONE);
-			fence_list.push_back(fence);
+			const auto fence = DX12Fence(device->get(), 0, D3D12_FENCE_FLAG_NONE);
+			fence_list.push_back(std::make_unique<DX12Fence>(device->get(), 0, D3D12_FENCE_FLAG_NONE));
 		}
 	}
 
@@ -119,8 +119,8 @@ namespace nova
 
 		graphic_command_queue->ExecuteCommandLists(1, command_list);
 
-		const auto fence = fence_list[frame_index];
-		if (FAILED(graphic_command_queue->Signal(fence.getNativeFence(), fence.getValue())))
+		const auto fence = fence_list[frame_index].get();
+		if (FAILED(graphic_command_queue->Signal(fence->getNative(), fence->getValue())))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to signal the fence value!");
 
 		if (FAILED(swap_chain->Present(0, 0)))
@@ -156,7 +156,7 @@ namespace nova
 	void DX12GraphicContext::waitForPreviousFrame() noexcept
 	{
 		frame_index = swap_chain->GetCurrentBackBufferIndex();
-		fence_list[frame_index].wait();
+		fence_list[frame_index]->wait();
 	}
 
 	void DX12GraphicContext::updatePipeline() noexcept

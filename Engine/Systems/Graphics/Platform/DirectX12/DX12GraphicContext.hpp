@@ -40,7 +40,7 @@ namespace nova
 
 		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource1>> back_buffer_list{};
 		std::vector<std::unique_ptr<DX12CommandAllocator>> command_allocator_list{};
-		std::vector<DX12Fence> fence_list{};
+		std::vector<std::unique_ptr<DX12Fence>> fence_list{};
 
 		UInt32 rtv_descriptor_size{};
 		UInt32 dsv_descriptor_size{};
