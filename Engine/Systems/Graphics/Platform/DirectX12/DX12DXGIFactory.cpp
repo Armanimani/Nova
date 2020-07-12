@@ -18,17 +18,6 @@ namespace nova
 		}
 	}
 
-	Bool DX12DXGIFactory::checkSupportTearing() const noexcept
-	{
-		auto result = FALSE;
-		if (FAILED(dxgi_factory->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &result, sizeof(result))))
-		{
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to get the tearing support");
-			return false;
-		}
-		return true;
-	}
-
 	IDXGIFactory6* DX12DXGIFactory::getNative() const noexcept
 	{
 		return dxgi_factory.Get();

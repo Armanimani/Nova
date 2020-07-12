@@ -9,8 +9,6 @@ namespace nova
 	{
 	public:
 		DX12DXGIFactory();
-
-		[[nodiscard]] Bool checkSupportTearing() const noexcept;
 		
 		[[nodiscard]] IDXGIFactory6* getNative() const noexcept;
 	private:
