@@ -8,5 +8,7 @@ namespace nova
 	{
 	public:
 		virtual ~IGraphicCommandContext() = default;
+
+		virtual void clearRenderTargetViewColor(Float red, Float green, Float blue, Float alpha) noexcept = 0;
 	};
 }

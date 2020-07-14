@@ -116,6 +116,7 @@
     <ClCompile Include="Math\IntVector3.cpp" />
     <ClCompile Include="Math\IntVector4.cpp" />
     <ClCompile Include="Math\Matrix4X4.cpp" />
+    <ClCompile Include="Systems\Graphics\Renderer\BaseRenderer.cpp" />
     <ClCompile Include="Systems\Input\Codes\KeyCode.cpp" />
     <ClCompile Include="Systems\Input\Codes\MouseCode.cpp" />
     <ClCompile Include="Systems\Input\Component\InputComponent.cpp" />
@@ -146,6 +147,8 @@
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12CommandListManager.hpp" />
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12DescriptorHeap.hpp" />
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.hpp" />
+    <ClInclude Include="Systems\Graphics\Renderer\IRenderer.hpp" />
+    <ClInclude Include="Systems\Graphics\Renderer\BaseRenderer.hpp" />
     <ClInclude Include="Systems\Input\Codes\KeyCode.hpp" />
     <ClInclude Include="Systems\Input\Codes\MouseCode.hpp" />
     <ClInclude Include="Systems\Input\Component\InputComponent.hpp" />

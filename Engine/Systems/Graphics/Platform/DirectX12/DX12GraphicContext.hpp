@@ -56,7 +56,7 @@ namespace nova
 		void initializeBufferCount(Bool is_triple_buffering_enabled) noexcept;
 
 		void updatePipeline() noexcept;
-		void clearColor() const noexcept;
+		void updateCommandContext() const noexcept;
 
 		void setCurrentBackBuffer() const noexcept;
 		void transitionCurrentBackBuffer() const noexcept;

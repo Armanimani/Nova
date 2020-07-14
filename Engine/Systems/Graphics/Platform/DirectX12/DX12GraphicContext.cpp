@@ -8,6 +8,7 @@ namespace nova
 		: window_handle{ static_cast<HWND>(window_handle) }
 	{
 		initializeBufferCount(settings.is_triple_buffering_enabled);
+		command_context = std::make_unique<DX12CommandContext>();
 	}
 
 	void DX12GraphicContext::initialize() noexcept
@@ -22,7 +23,6 @@ namespace nova
 	void DX12GraphicContext::update([[maybe_unused]] Context* context, [[maybe_unused]] Float delta_time) noexcept
 	{
 		updatePipeline();
-		clearColor();
 	}
 
 	void DX12GraphicContext::createRTVAndDSV() noexcept
@@ -162,6 +162,7 @@ namespace nova
 		waitForCurrentBackBuffer();
 		resetCommandLists();
 		setCurrentBackBuffer();
+		updateCommandContext();
 	}
 
 	void DX12GraphicContext::setCurrentBackBuffer() const noexcept
@@ -213,12 +214,11 @@ namespace nova
 		return fence_list[current_frame_index].get();
 	}
 
-	void DX12GraphicContext::clearColor() const noexcept
+	void DX12GraphicContext::updateCommandContext() const noexcept
 	{
-		const auto direct_command_list = device->getDirectCommandList();
-		const auto handle = device->getRTVDescriptorHeap()->getCPUHandle(current_frame_index);
-		
-		const float color[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-		direct_command_list->getNative()->ClearRenderTargetView(handle, color, 0, nullptr);
+		auto context = dynamic_cast<DX12CommandContext*>(command_context.get());
+		context->setSwapChain(swap_chain.get());
+		context->setDevice(device.get());
+		context->setCurrentFrameIndex(current_frame_index);
 	}
 }
