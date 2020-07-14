@@ -7,7 +7,7 @@ namespace nova
 		const D3D12_DESCRIPTOR_HEAP_TYPE type, const UInt32 number, const D3D12_DESCRIPTOR_HEAP_FLAGS flags)
 		: number{ number }, type{ type }
 	{
-		const auto description = getDescription(type, size, flags);
+		const auto description = getDescription(type, number, flags);
 		if (FAILED(device->CreateDescriptorHeap(&description, IID_PPV_ARGS(&heap))))
 			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create descriptor heap!");
 
@@ -33,6 +33,11 @@ namespace nova
 	D3D12_CPU_DESCRIPTOR_HANDLE DX12DescriptorHeap::getCPUHandle() const noexcept
 	{
 		return cpu_handle;
+	}
+
+	D3D12_CPU_DESCRIPTOR_HANDLE DX12DescriptorHeap::getCPUHandle(const UInt32 index) const noexcept
+	{
+		return CD3DX12_CPU_DESCRIPTOR_HANDLE(getCPUHandle(), index, getSize());
 	}
 	
 	D3D12_GPU_DESCRIPTOR_HANDLE DX12DescriptorHeap::getGPUHandle() const noexcept

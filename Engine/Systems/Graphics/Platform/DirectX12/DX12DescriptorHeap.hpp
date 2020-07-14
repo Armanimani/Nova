@@ -13,12 +13,15 @@ namespace nova
 		[[nodiscard]] UInt32 getNumber() const noexcept;
 		[[nodiscard]] UInt32 getSize() const noexcept;
 		[[nodiscard]] D3D12_DESCRIPTOR_HEAP_TYPE getType() const noexcept;
+		
 		[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE getCPUHandle() const noexcept;
+		[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE getCPUHandle(UInt32 index) const noexcept;
 		[[nodiscard]] D3D12_GPU_DESCRIPTOR_HANDLE getGPUHandle() const noexcept;
 		
 		[[nodiscard]] ID3D12DescriptorHeap* getNative() const noexcept;
 	private:
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> heap{};
+
 		UInt32 number{};
 		UInt32 size{};
 		D3D12_DESCRIPTOR_HEAP_TYPE type{};

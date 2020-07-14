@@ -18,11 +18,11 @@ namespace nova
 	}
 
 	
-	void GraphicSystem::update([[maybe_unused]] Context* context, [[maybe_unused]] Float delta_time) noexcept
+	void GraphicSystem::update(Context* context, const Float delta_time) noexcept
 	{
 		const auto& event_manager = context->event_manager;
+		graphic_context->update(context, delta_time);
 		processResizeEvent(event_manager);
-		
 		graphic_context->present();
 	}
 	

@@ -66,12 +66,6 @@
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactoryFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12Fence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -79,9 +73,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12GraphicContextFactoryAdapter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12SwapChainFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Systems\Graphics\Context\GraphicContextFactory.cpp">
@@ -127,6 +118,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12CommandList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12SwapChain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12DescriptorHeap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12CommandListManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Graphics\Platform\DirectX12\DX12CommandContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,12 +233,6 @@
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12Device.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactoryFactory.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12Fence.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -237,9 +240,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12GraphicContextFactoryAdapter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12SwapChainFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Graphics\Context\GraphicContextFactory.hpp">
@@ -357,6 +357,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12CommandList.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12DXGIFactory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12FeatureChecker.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12SwapChain.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12DescriptorHeap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12CommandListManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Platform\DirectX12\DX12CommandContext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Graphics\Context\IGraphicCommandContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

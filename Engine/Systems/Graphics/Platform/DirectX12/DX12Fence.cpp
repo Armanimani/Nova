@@ -25,7 +25,7 @@ namespace nova
 		{
 			initializeCompleteHandleEvent();
 			
-			if (FAILED(fence->SetEventOnCompletion(value, handle_complete_event)))
+			if (FAILED(fence->SetEventOnCompletion(getValue(), handle_complete_event)))
 			{
 				ConsoleLogger::logCritical(k_dx12_channel, "Unable to set the event for fence");
 			}

@@ -3,6 +3,9 @@
 
 namespace nova
 {
+	constexpr auto k_maximum_descriptor_heap_size = 1024;
+	constexpr auto k_number_of_allocators = 3;
+	
 	DX12Device::DX12Device()
 	{
 	#ifdef _DEBUG
@@ -12,72 +15,83 @@ namespace nova
 		createDevice();
 		
 	#ifdef _DEBUG
-			enableDebugInfoQueue();
+		enableDebugInfoQueue();
 	#endif
+
+		createDescriptorHeaps();
+		createGraphicCommandQueue();
+		createCommandListManagers();
 	}
 
-	Microsoft::WRL::ComPtr<ID3D12CommandQueue> DX12Device::createCommandQueue(
-		const D3D12_COMMAND_LIST_TYPE type, 
-		const D3D12_COMMAND_QUEUE_PRIORITY priority) const noexcept
-	{
-		const auto descriptor = getCommandQueueDescription(type, priority);
-		Microsoft::WRL::ComPtr<ID3D12CommandQueue> command_queue{};
-
-		if (FAILED(device->CreateCommandQueue(&descriptor, IID_PPV_ARGS(&command_queue))))
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create the command queue!");
-
-		return command_queue;
-	}
-
-	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> DX12Device::createDescriptorHeap(
-		const D3D12_DESCRIPTOR_HEAP_TYPE type,
-		const UInt32 number) const noexcept
-	{
-		const auto description = getDescriptorHeapDescription(type, number);
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptor_heap{};
-		
-		if (FAILED(device->CreateDescriptorHeap(&description, IID_PPV_ARGS(&descriptor_heap))))
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create descriptor heap!");
-
-		return descriptor_heap;
-	}
-
-	Microsoft::WRL::ComPtr<ID3D12QueryHeap> DX12Device::createQueryHeap(
-		const D3D12_QUERY_HEAP_TYPE type,
-		const UInt32 number) const noexcept
-	{
-		const auto description = getQueryHeapDescription(type, number);
-		Microsoft::WRL::ComPtr<ID3D12QueryHeap> descriptor{};
-
-		if (FAILED(device->CreateQueryHeap(&description, IID_PPV_ARGS(&descriptor))))
-			ConsoleLogger::logCritical(k_dx12_channel, "Unable to create descriptor heap!");
-
-		return descriptor;
-	}
-
-	UInt32 DX12Device::getRtvDescriptorSize() const noexcept
-	{
-		return getDescriptorSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-	}
-	
-	UInt32 DX12Device::getDsvDescriptorSize() const noexcept
-	{
-		return getDescriptorSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
-	}
-	
-	UInt32 DX12Device::getCbvSrvUavDescriptorSize() const noexcept
-	{
-		return getDescriptorSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	}
-
-	ID3D12Device* DX12Device::get() const noexcept
+	ID3D12Device* DX12Device::getNative() const noexcept
 	{
 		return device.Get();
 	}
 
-	UInt32 DX12Device::getDescriptorSize(const D3D12_DESCRIPTOR_HEAP_TYPE type) const noexcept
+	DX12DescriptorHeap* DX12Device::getRTVDescriptorHeap() const noexcept
 	{
-		return device->GetDescriptorHandleIncrementSize(type);
+		return rtv_descriptor_heap.get();
+	}
+	
+	DX12DescriptorHeap* DX12Device::getDSVDescriptorHeap() const noexcept
+	{
+		return dsv_descriptor_heap.get();
+	}
+
+	DX12CommandList* DX12Device::getDirectCommandList() const noexcept
+	{
+		return direct_command_list_manager->getCommandList();
+	}
+
+	DX12CommandList* DX12Device::getCopyCommandList() const noexcept
+	{
+		return copy_command_list_manager->getCommandList();
+	}
+
+	DX12CommandList* DX12Device::getComputeCommandList() const noexcept
+	{
+		return compute_command_list_manager->getCommandList();
+	}
+
+	DX12CommandListManager* DX12Device::getDirectCommandListManager() const noexcept
+	{
+		return direct_command_list_manager.get();
+	}
+	
+	DX12CommandListManager* DX12Device::getCopyCommandListManager() const noexcept
+	{
+		return copy_command_list_manager.get();
+	}
+	
+	DX12CommandListManager* DX12Device::getComputeCommandListManager() const noexcept
+	{
+		return compute_command_list_manager.get();
+	}
+
+	ID3D12CommandQueue* DX12Device::getCommandQueue() const noexcept
+	{
+		return graphic_command_queue.Get();
+	}
+
+	void DX12Device::createDescriptorHeaps() noexcept
+	{
+		rtv_descriptor_heap = std::make_unique<DX12DescriptorHeap>(
+			device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, k_maximum_descriptor_heap_size, D3D12_DESCRIPTOR_HEAP_FLAG_NONE);
+		dsv_descriptor_heap = std::make_unique<DX12DescriptorHeap>(
+			device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_DSV, k_maximum_descriptor_heap_size, D3D12_DESCRIPTOR_HEAP_FLAG_NONE);
+	}
+
+	void DX12Device::createGraphicCommandQueue() noexcept
+	{
+		const auto description = getCommandQueueDescription(D3D12_COMMAND_LIST_TYPE_DIRECT, D3D12_COMMAND_QUEUE_PRIORITY_NORMAL);
+		device->CreateCommandQueue(&description, IID_PPV_ARGS(&graphic_command_queue));
+	}
+
+	void DX12Device::createCommandListManagers() noexcept
+	{
+		direct_command_list_manager = std::make_unique<DX12CommandListManager>(getNative(), D3D12_COMMAND_LIST_TYPE_DIRECT, k_number_of_allocators);
+		copy_command_list_manager = std::make_unique<DX12CommandListManager>(getNative(), D3D12_COMMAND_LIST_TYPE_COPY, k_number_of_allocators);
+		compute_command_list_manager = std::make_unique<DX12CommandListManager>(getNative(), D3D12_COMMAND_LIST_TYPE_COMPUTE, k_number_of_allocators);
 	}
 
 	void DX12Device::createDevice() noexcept
@@ -114,28 +128,6 @@ namespace nova
 		description.Priority = priority;
 		description.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 		description.NodeMask = 0;
-
-		return description;
-	}
-
-	D3D12_DESCRIPTOR_HEAP_DESC DX12Device::getDescriptorHeapDescription(
-		const D3D12_DESCRIPTOR_HEAP_TYPE type,
-		const UInt32 number) noexcept
-	{
-		D3D12_DESCRIPTOR_HEAP_DESC description{};
-		description.Type = type;
-		description.NumDescriptors = number;
-
-		return description;
-	}
-
-	D3D12_QUERY_HEAP_DESC DX12Device::getQueryHeapDescription(
-		const D3D12_QUERY_HEAP_TYPE type,
-		const UInt32 number) noexcept
-	{
-		D3D12_QUERY_HEAP_DESC description{};
-		description.Type = type;
-		description.Count = number;
 
 		return description;
 	}

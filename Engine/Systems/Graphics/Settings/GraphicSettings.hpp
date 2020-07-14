@@ -13,7 +13,7 @@ namespace nova
 	struct NOVA_API GraphicSettings
 	{
 		Bool is_v_sync_enabled{ false };
-		Bool is_triple_buffering_enabled{ false };
+		Bool is_triple_buffering_enabled{ true };
 		GraphicApi api{ GraphicApi::none };
 	};
 }
