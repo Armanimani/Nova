@@ -29,6 +29,7 @@ namespace nova
 		
 		const auto& event_manager = context->event_manager;
 		processResizeEvent(event_manager);
+		
 		updateRendererList(context, delta_time);
 		
 		graphic_context->present();
